@@ -1049,8 +1049,8 @@ class TemplateTagsTestCase(TestCase):
             'zinnia/_entry_detail.html')
         self.assertRaisesRegexp(
             TemplateDoesNotExist,
-            'zinnia/1_entry_detail.html, '
             'zinnia/_entry_custom.html_1, '
+            'zinnia/1_entry_detail.html, '
             'zinnia/_entry_custom.html',
             positional_template, 'zinnia/_entry_custom.html', 1)
 

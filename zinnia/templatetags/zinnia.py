@@ -393,8 +393,8 @@ def positional_template(template, position):
     Return a selected template from his position.
     """
     templates = [
-        'zinnia/%s_entry_detail.html' % position,
         '%s_%s' % (template, position),
+        'zinnia/%s_entry_detail.html' % position,
         template
     ]
     positional_template = select_template(templates)
