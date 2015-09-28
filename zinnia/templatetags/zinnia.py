@@ -398,7 +398,7 @@ def positional_template(template, position):
         template
     ]
     positional_template = select_template(templates)
-    return positional_template.template.name
+    return positional_template
 
 
 @register.filter

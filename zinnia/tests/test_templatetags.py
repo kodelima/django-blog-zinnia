@@ -1045,7 +1045,7 @@ class TemplateTagsTestCase(TestCase):
 
     def test_position_template(self):
         self.assertEqual(
-            positional_template('zinnia/_entry_detail.html', 1),
+            positional_template('zinnia/_entry_detail.html', 1).template.name,
             'zinnia/_entry_detail.html')
         self.assertRaisesRegexp(
             TemplateDoesNotExist,
