@@ -386,6 +386,15 @@ def widont(value, autoescape=None):
 
 
 @register.filter
+def loop_position(page, loop_counter):
+    """
+    Return the current position of an Entry within a loop.
+    """
+    position = (page.number - 1) * page.paginator.per_page + loop_counter
+    return position
+
+
+@register.filter
 def week_number(date):
     """
     Return the Python week number of a date.

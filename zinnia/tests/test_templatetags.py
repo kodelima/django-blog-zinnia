@@ -50,6 +50,7 @@ from zinnia.templatetags.zinnia import get_featured_entries
 from zinnia.templatetags.zinnia import get_calendar_entries
 from zinnia.templatetags.zinnia import get_archives_entries
 from zinnia.templatetags.zinnia import get_archives_entries_tree
+from zinnia.templatetags.zinnia import loop_position
 from zinnia.templatetags.zinnia import user_admin_urlname
 from zinnia.templatetags.zinnia import comment_admin_urlname
 
@@ -1039,6 +1040,12 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(
             widont('I like to : move it !'),
             'I like to : move&nbsp;it&nbsp;!')
+
+    def test_loop_position(self):
+        paginator = Paginator(range(200), 10)
+        self.assertEqual(loop_position(paginator.page(1), 0), 0)
+        self.assertEqual(loop_position(paginator.page(1), 9), 9)
+        self.assertEqual(loop_position(paginator.page(2), 9), 19)
 
     def test_week_number(self):
         self.assertEqual(week_number(datetime(2013, 1, 1)), '0')
