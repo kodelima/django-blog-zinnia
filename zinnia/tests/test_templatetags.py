@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.template import Context
 from django.template import Template
 from django.template import TemplateSyntaxError
+from django.template import TemplateDoesNotExist
 from django.db.models.signals import post_save
 from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
@@ -51,6 +52,7 @@ from zinnia.templatetags.zinnia import get_calendar_entries
 from zinnia.templatetags.zinnia import get_archives_entries
 from zinnia.templatetags.zinnia import get_archives_entries_tree
 from zinnia.templatetags.zinnia import loop_position
+from zinnia.templatetags.zinnia import positional_template
 from zinnia.templatetags.zinnia import user_admin_urlname
 from zinnia.templatetags.zinnia import comment_admin_urlname
 
@@ -1040,6 +1042,17 @@ class TemplateTagsTestCase(TestCase):
         self.assertEqual(
             widont('I like to : move it !'),
             'I like to : move&nbsp;it&nbsp;!')
+
+    def test_position_template(self):
+        self.assertEqual(
+            positional_template('zinnia/_entry_detail.html', 1),
+            'zinnia/_entry_detail.html')
+        self.assertRaisesRegexp(
+            TemplateDoesNotExist,
+            'zinnia/1_entry_detail.html, '
+            'zinnia/_entry_custom.html_1, '
+            'zinnia/_entry_custom.html',
+            positional_template, 'zinnia/_entry_custom.html', 1)
 
     def test_loop_position(self):
         paginator = Paginator(range(200), 10)

@@ -16,6 +16,7 @@ from django.utils.encoding import smart_text
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.utils.html import conditional_escape
+from django.template.loader import select_template
 from django.template.defaultfilters import stringfilter
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -383,6 +384,21 @@ def widont(value, autoescape=None):
     value = DOUBLE_SPACE_PUNCTUATION_WIDONT_REGEXP.sub(replace, value)
 
     return mark_safe(value)
+
+
+@register.filter
+@stringfilter
+def positional_template(template, position):
+    """
+    Return a selected template from his position.
+    """
+    templates = [
+        'zinnia/%s_entry_detail.html' % position,
+        '%s_%s' % (template, position),
+        template
+    ]
+    positional_template = select_template(templates)
+    return positional_template.template.name
 
 
 @register.filter
