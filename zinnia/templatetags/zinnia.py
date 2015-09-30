@@ -35,6 +35,7 @@ from ..managers import DRAFT
 from ..managers import tags_published
 from ..flags import PINGBACK, TRACKBACK
 from ..settings import PROTOCOL
+from ..settings import ENTRY_LOOP_TEMPLATES
 from ..comparison import EntryPublishedVectorBuilder
 from ..calendar import Calendar
 from ..breadcrumbs import retrieve_breadcrumbs
@@ -397,6 +398,10 @@ def positional_template(template, position):
         'zinnia/%s_entry_detail.html' % position,
         template
     ]
+
+    if position in ENTRY_LOOP_TEMPLATES:
+        templates.insert(0, ENTRY_LOOP_TEMPLATES[position])
+
     positional_template = select_template(templates)
     return positional_template
 

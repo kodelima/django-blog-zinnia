@@ -55,6 +55,7 @@ from zinnia.templatetags.zinnia import loop_position
 from zinnia.templatetags.zinnia import positional_template
 from zinnia.templatetags.zinnia import user_admin_urlname
 from zinnia.templatetags.zinnia import comment_admin_urlname
+from zinnia.templatetags import zinnia as zinnia_tags
 
 
 class TemplateTagsTestCase(TestCase):
@@ -1053,6 +1054,16 @@ class TemplateTagsTestCase(TestCase):
             'zinnia/1_entry_detail.html, '
             'zinnia/_entry_custom.html',
             positional_template, 'zinnia/_entry_custom.html', 1)
+        original_entry_loop_templates = zinnia_tags.ENTRY_LOOP_TEMPLATES
+        zinnia_tags.ENTRY_LOOP_TEMPLATES = {1: 'template.html'}
+        self.assertRaisesRegexp(
+            TemplateDoesNotExist,
+            'template.html, '
+            'zinnia/_entry_custom.html_1, '
+            'zinnia/1_entry_detail.html, '
+            'zinnia/_entry_custom.html',
+            positional_template, 'zinnia/_entry_custom.html', 1)
+        zinnia_tags.ENTRY_LOOP_TEMPLATES = original_entry_loop_templates
 
     def test_loop_position(self):
         paginator = Paginator(range(200), 10)
