@@ -1,6 +1,11 @@
 ===============================================
-Django Blog Zinnia |latest-version| |downloads|
+Django Blog Zinnia 
 ===============================================
+
+Custom Blog Zinnia for Kodelima Web site, add:
+
+* Image Category.
+
 
 |travis-develop| |coverage-develop|
 
